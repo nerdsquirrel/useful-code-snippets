@@ -9,6 +9,7 @@
   git config --list # check current git config
   git config user.name "username" # set username
   git fetch && git checkout branch-name # fetch the reposity and go to working branch
+  # press q to exit from command
   ```
 2. git save changes:
 ```bash
