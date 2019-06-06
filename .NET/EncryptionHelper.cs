@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace InsuranceRight.Web.Core.Helpers
+namespace Helpers
 {
     /// <summary>
     /// Provides helper methods for data encryption.
