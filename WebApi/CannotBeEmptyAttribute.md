@@ -1,3 +1,4 @@
+```csharp
 using System;
 using System.Collections;
 using System.ComponentModel.DataAnnotations;
@@ -47,4 +48,13 @@ namespace Core.Attributes
             return string.Format(ErrorMessageString, name);
         }
     }
+}
+```
+### How to use?
+```csharp
+[HttpGet]
+[Route("download/{Id}")]
+public async Task<HttpResponseMessage> Download([FromUri][Required][CannotBeEmpty]string Id)
+{
+    // ... 
 }
