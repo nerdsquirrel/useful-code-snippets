@@ -1,3 +1,6 @@
+/// <summary>
+/// class which implements IHttpActionResult can be returned as Ok() response.
+/// </summary>
 public class AuthenticationFailureResult : IHttpActionResult
 {
     public AuthenticationFailureResult(string reasonPhrase, HttpRequestMessage request)
