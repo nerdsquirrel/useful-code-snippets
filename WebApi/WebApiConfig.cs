@@ -25,8 +25,9 @@ public static class WebApiConfig
 
             config.MessageHandlers.Add(new AntiForgeryHandler());
             config.MessageHandlers.Add(new ResponseWrappingHandler());
-            
-            config.MapHttpAttributeRoutes(new CentralizedPrefixProvider("api"));
+
+            // Configure Web API to use only bearer token authentication.
+            config.SuppressDefaultHostAuthentication();
 
             // Json settings
             config.Formatters.JsonFormatter.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
@@ -46,6 +47,7 @@ public static class WebApiConfig
             config.Formatters.Clear();
             config.Formatters.Add(new JsonMediaTypeFormatter());
 
+            config.MapHttpAttributeRoutes(new CentralizedPrefixProvider("api"));
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
