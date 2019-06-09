@@ -25,7 +25,17 @@ public class EmailClient
             attachments.ToList().ForEach(attachment => AddAttachment(message, attachment));
         }
 
-        await client.SendMailAsync(message);
+        // adding attachment file from storage
+        message.Attachments.Add(new Attachment(HttpContext.Server.MapPath("~/content/configuration.pdf")));
+
+        try
+        {
+            await client.SendMailAsync(message);
+        }
+        catch(Exception ex)
+        {
+            // logging
+        }
         
         message.Dispose();
     }
