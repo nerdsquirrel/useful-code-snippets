@@ -20,6 +20,12 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
             Context.Entry(entityToUpdate).State = EntityState.Modified;
         }
 
+        public virtual void InsertOrUpdate(TEntity entity)
+        {
+            DbSet.AddOrUpdate(entity);
+            // using System.Data.Entity.Migrations;
+        }
+
         public virtual void Delete(object id)
         {
             var entityToDelete = DbSet.Find(id);
