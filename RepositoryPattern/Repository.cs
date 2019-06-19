@@ -22,8 +22,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
 
         public virtual void InsertOrUpdate(TEntity entity)
         {
-            DbSet.AddOrUpdate(entity);
-            // using System.Data.Entity.Migrations;
+            DbSet.AddOrUpdate(entity);    // using System.Data.Entity.Migrations;
         }
 
         public virtual void Delete(object id)
@@ -74,25 +73,36 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
         public virtual async Task<TEntity> FindById(object id)
         {
             return await DbSet.FindAsync(id);
-        }
-
-        public virtual IQueryable<TEntity> FindAll()
-        {
-            return DbSet;
-        }
+        }       
 
         public virtual IQueryable<TEntity> Table => DbSet;
 
         public virtual IQueryable<TEntity> FindAll(Expression<Func<TEntity, bool>> predicate)
         {
-            return DbSet.Where(predicate);
-        }
+            IQueryable<TEntity> query = DbSet;
 
-        public virtual IQueryable<TEntity> FindAllIncluding(params Expression<Func<TEntity, object>>[] includeProperties)
+            if (includeProperties != null && includeProperties.Length > 0)
+            {
+                foreach (Expression<Func<TEntity, object>> include in includeProperties)
+                    query = query.Include(include);
+            }
+
+            return query.Where(predicate);
+        }     
+
+        public void Refresh(TEntity entity)
         {
-            return includeProperties.Aggregate<Expression<Func<TEntity, object>>, IQueryable<TEntity>>(DbSet,
-                (current, property) => current.Include(property));
-        }
+            if (entity == null) return;
+
+            ((IObjectContextAdapter)Context).ObjectContext.RefreshAsync(RefreshMode.StoreWins, entity);
+        }   
+
+        public void Refresh(IEnumerable<TEntity> entities)
+        {
+            if (entities == null || entities.Count == 0) return;
+
+            ((IObjectContextAdapter)Context).ObjectContext.RefreshAsync(RefreshMode.StoreWins, entities);
+        }  
 
         #region IDisposable
         
