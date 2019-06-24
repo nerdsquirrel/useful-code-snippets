@@ -38,6 +38,9 @@ git reset <file-name>
   git branch -d branch-name  # to delete a branch
   git checkout --track origin/newsletter # checkout to remote branch
   git branch --set-upstream-to <remote-branch> # set remote branch
+  git branch --move <old_name> <new_name> # local branch rename
+  git push origin [-u] <new_name> # pushing to remote will create new branch if not already exist
+  git push origin -d <old_name> # delete remote branch
   ```  
   5. git reset:
   ```bash
