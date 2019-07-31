@@ -3,6 +3,7 @@ Image resizing has been done with a third party library named Image processor.
 
 ### References
 https://imageprocessor.org/imageprocessor/imagefactory/
+
 https://www.hanselman.com/blog/NuGetPackageOfTheWeekImageProcessorLightweightImageManipulationInC.aspx
 
 ```csharp
